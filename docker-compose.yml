@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:17.4
+    container_name: order
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: orderManager
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
