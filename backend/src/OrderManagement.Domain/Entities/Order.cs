@@ -17,7 +17,9 @@ namespace OrderManagement.Domain.Entities
             Produto = produto;
             Valor = valor;
             Status = "Pendente";
-            
+            DataCriacao = DateTime.UtcNow;
+
+
         }
 
         public Order(Guid id, string cliente, string produto, decimal valor, string status, DateTime dataCriacao)

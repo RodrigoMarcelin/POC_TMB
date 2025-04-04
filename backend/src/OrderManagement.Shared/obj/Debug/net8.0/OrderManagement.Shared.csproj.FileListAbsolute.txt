@@ -1,0 +1,12 @@
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\bin\Debug\net8.0\OrderManagement.Shared.deps.json
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\bin\Debug\net8.0\OrderManagement.Shared.dll
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\bin\Debug\net8.0\OrderManagement.Shared.pdb
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\OrderManagement.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\OrderManagement.Shared.AssemblyInfoInputs.cache
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\OrderManagement.Shared.AssemblyInfo.cs
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\OrderManagement.Shared.csproj.CoreCompileInputs.cache
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\OrderManagement.Shared.sourcelink.json
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\OrderManagement.Shared.dll
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\refint\OrderManagement.Shared.dll
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\OrderManagement.Shared.pdb
+C:\Users\rodri\OneDrive\Documentos\POC_TMB\backend\src\OrderManagement.Shared\obj\Debug\net8.0\ref\OrderManagement.Shared.dll

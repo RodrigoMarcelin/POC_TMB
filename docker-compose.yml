@@ -1,4 +1,5 @@
 services:
+
   postgres:
     image: postgres:17.4
     container_name: order
@@ -10,3 +11,30 @@ services:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "orderManager"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - app_network
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: OrderManagement
+    ports:
+      - "5000:5000"  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=postgres;Port=5432;Database=orderManager;Username=postgres;Password=postgres
+    depends_on:
+      - postgres  
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge

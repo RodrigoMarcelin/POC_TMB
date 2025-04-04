@@ -17,6 +17,8 @@
 /frontend/package-lock.json
 /frontend/yarn.lock
 
+/serviceBus/.env
+
 .DS_Store
 Thumbs.db
 

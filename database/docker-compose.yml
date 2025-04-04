@@ -1,0 +1,26 @@
+services:
+
+  postgres:
+    image: postgres:17.4
+    container_name: order
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: orderManager
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "orderManager"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+networks:
+  app_network:
+    driver: bridge

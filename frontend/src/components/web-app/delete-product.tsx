@@ -1,5 +1,6 @@
 import { Trash } from "lucide-react";
-
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,16 +12,41 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { deleteOrder } from "@/service/deleteOrder"; 
 
-export function DeleteProduct() {
+interface DeleteProductProps {
+  orderId: string;
+  onDelete: () => void; 
+}
+
+export function DeleteProduct({ orderId, onDelete }: DeleteProductProps) {
+  const [open, setOpen] = useState(false);
+
+  const handleDelete = async () => {
+    try {
+      const result = await deleteOrder(orderId);
+      if (result) {
+        onDelete(); 
+        alert("Pedido excluído com sucesso!");
+      } else {
+        alert("Erro ao excluir pedido");
+      }
+      setOpen(false);
+    } catch (error) {
+      console.error("Erro ao excluir o pedido:", error);
+      alert("Houve um erro ao tentar excluir o pedido.");
+      setOpen(false); 
+    }
+  };
+
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button size="icon" className="rounded-full" variant="destructive">
           <Trash />
         </Button>
       </AlertDialogTrigger>
+
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -29,9 +55,10 @@ export function DeleteProduct() {
             account and remove your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
+
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogCancel onClick={() => setOpen(false)}>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
