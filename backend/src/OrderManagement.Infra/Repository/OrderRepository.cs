@@ -26,7 +26,9 @@ namespace OrderManagement.Infra.Repository
 
         public async Task<List<Order>> GetAll()
         {
-            return await _appDbContext.Order.ToListAsync();
+            return await _appDbContext.Order
+                .OrderByDescending(o => o.DataCriacao)
+                .ToListAsync();
         }
 
         public async Task<Order> GetById(Guid id)

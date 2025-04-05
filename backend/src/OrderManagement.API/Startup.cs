@@ -10,6 +10,8 @@ using OrderManagement.Shared.Commands;
 using OrderManagement.Shared.Interface;
 using OrderManagement.Application.UseCase;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using OrderManagement.API.Hubs;
+using OrderManagement.API.Services;
 
 namespace OrderManagement.API
 {
@@ -25,13 +27,16 @@ namespace OrderManagement.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Configuração do CORS
+
+            services.AddSignalR();
+            
             services.AddCors(options =>
             {
                 options.AddPolicy(CORSPolicy, policy =>
                     policy.WithOrigins("http://localhost:5173")
                             .AllowAnyMethod()
-                            .AllowAnyHeader());
+                            .AllowAnyHeader()
+                            .AllowCredentials());
             });
 
             services.AddDbContext<AppDbContext>(options =>
@@ -45,6 +50,7 @@ namespace OrderManagement.API
             services.AddScoped<GetOrderByIdUseCase, GetOrderByIdUseCase>();
             services.AddScoped<InsertOrderUseCase, InsertOrderUseCase>();
             services.AddScoped<UpdateOrderUseCase, UpdateOrderUseCase>();
+            services.AddScoped<IOrderNotifier, SignalROrderNotifier>();
 
             services.AddControllers();
         }
@@ -64,7 +70,7 @@ namespace OrderManagement.API
 
             app.UseCors(CORSPolicy);
 
-            //app.UseHttpsRedirection();
+            
 
             app.UseStaticFiles();
             app.UseRouting();
@@ -73,6 +79,7 @@ namespace OrderManagement.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<OrderHub>("/orderhub");
             });
         }
     }

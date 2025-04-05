@@ -15,10 +15,13 @@ namespace OrderManagement.Application.UseCase
     public class UpdateOrderUseCase
     {
         private readonly IOrderRepository _repository;
+        private readonly IOrderNotifier _notifier;
 
-        public UpdateOrderUseCase(IOrderRepository repository)
+
+        public UpdateOrderUseCase(IOrderRepository repository, IOrderNotifier notifier)
         {
             _repository = repository;
+            _notifier = notifier;
         }
 
         public async Task<ICommandResult> UpdateOrder(Guid id, OrderDTO command)
@@ -30,6 +33,7 @@ namespace OrderManagement.Application.UseCase
 
                 if (resultUpdateOrder)
                 {
+                    await _notifier.NotifyOrderUpdatedAsync();
                     return new CommandResult(true, "Pedido atualizado com sucesso.");
                 }
                 else

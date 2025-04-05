@@ -7,8 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "./components/ui/button";
-import { Dialog } from "@radix-ui/react-dialog";
+import * as signalR from "@microsoft/signalr";
 import { DeleteProduct, DialogEdit, DialogView, DialogCreate } from "./components/web-app";
 import { getOrders } from "./service/orderService";
 import logo from "@/assets/logo.png"; 
@@ -31,6 +30,23 @@ const App = () => {
     };
 
     fetchOrders();
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl("http://localhost:5000/orderhub")
+      .withAutomaticReconnect()
+      .build();
+
+    connection.on("OrderUpdated", () => {
+      console.log("🔄 Pedido atualizado via SignalR");
+      fetchOrders(); // Atualiza os dados
+    });
+
+    connection.start().catch((err) =>
+      console.error("Erro ao conectar ao SignalR:", err)
+    );
+
+    return () => {
+      connection.stop();
+    };
   }, []);
 
   const handleDelete = (deletedOrderId: string) => {
@@ -41,17 +57,17 @@ const App = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <main className="w-full h-screen grid place-items-center">
+    <main className="w-full h-screen flex flex-col items-center justify-center gap-2">
      
       <section className="w-full bg-black text-white p-4 fixed top-0 left-0 right-0 z-10">
         <h1 className="text-2xl font-bold">Order Management</h1>
       </section>
 
-      <div className="my-8">
+      <div>
         <img src={logo} alt="TMB Logo" className="mx-auto h-32" /> 
       </div>
 
-      <section className="w-full max-w-6xl p-4 mt-4">
+      <section className="w-full max-w-6xl mt-4">
         <div className="w-full flex justify-end mb-4">
           <DialogCreate />
         </div>
