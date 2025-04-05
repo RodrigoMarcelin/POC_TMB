@@ -9,7 +9,10 @@ namespace OrderManagement.Shared.Commands
 {
     public class CommandResult : ICommandResult
     {
-        public CommandResult() { }
+        public CommandResult()
+        {
+
+        }
         public CommandResult(bool success, string message)
         {
             Success = success;

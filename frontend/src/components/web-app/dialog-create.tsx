@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -38,8 +38,8 @@ export function DialogCreate() {
         produto: formData.produto,
         valor: parseFloat(formData.valor), 
       };
-      const response = await createOrder(newOrder); 
-      alert("Pedido criado com sucesso!");
+      await createOrder(newOrder); 
+      // alert("Pedido criado com sucesso!");
       setOpen(false); 
     } catch (error) {
       console.error("Erro ao criar o pedido", error);

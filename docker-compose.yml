@@ -28,10 +28,23 @@ services:
     ports:
       - "5000:5000"  
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=postgres;Port=5432;Database=orderManager;Username=postgres;Password=postgres
+      - ServiceBus__OrderManagementUpdate=
     depends_on:
       - postgres  
+    networks:
+      - app_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tmb-front
+    ports:
+      - "5173:5173" 
+    depends_on:
+      - api 
     networks:
       - app_network
 

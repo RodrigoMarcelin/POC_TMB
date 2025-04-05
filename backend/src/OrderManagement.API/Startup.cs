@@ -12,6 +12,9 @@ using OrderManagement.Application.UseCase;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using OrderManagement.API.Hubs;
 using OrderManagement.API.Services;
+using Azure.Messaging.ServiceBus;
+using OrderManagement.Infra.ServiceBus;
+using OrderManagement.API.BackgroundServices;
 
 namespace OrderManagement.API
 {
@@ -51,6 +54,22 @@ namespace OrderManagement.API
             services.AddScoped<InsertOrderUseCase, InsertOrderUseCase>();
             services.AddScoped<UpdateOrderUseCase, UpdateOrderUseCase>();
             services.AddScoped<IOrderNotifier, SignalROrderNotifier>();
+            services.AddScoped<UpdateOrderStatusUseCase, UpdateOrderStatusUseCase>();
+            services.AddHostedService<UpdateOrderConsumerService>();
+
+
+            var serviceBusConfig = Configuration.GetSection("ServiceBus");
+            var connectionString = serviceBusConfig["OrderManagementUpdate"];
+
+            services.AddSingleton<ServiceBusClient>(new ServiceBusClient(connectionString));
+            services.AddSingleton<ServiceBusSender>(provider =>
+            {
+                var client = provider.GetRequiredService<ServiceBusClient>();
+                return client.CreateSender("order"); // Nome da fila
+            });
+
+            services.AddScoped<IBusUpdateQueue, BusUpdateQueue>();
+            
 
             services.AddControllers();
         }

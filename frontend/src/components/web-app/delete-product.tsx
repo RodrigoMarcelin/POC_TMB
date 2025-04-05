@@ -1,5 +1,5 @@
 import { Trash } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -27,7 +27,7 @@ export function DeleteProduct({ orderId, onDelete }: DeleteProductProps) {
       const result = await deleteOrder(orderId);
       if (result) {
         onDelete(); 
-        alert("Pedido excluído com sucesso!");
+        // alert("Pedido excluído com sucesso!");
       } else {
         alert("Erro ao excluir pedido");
       }
@@ -49,10 +49,9 @@ export function DeleteProduct({ orderId, onDelete }: DeleteProductProps) {
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Você tem absoluta certeza?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Essa ação não pode ser desfeita. Isso irá remover esse dado permanentemente.
           </AlertDialogDescription>
         </AlertDialogHeader>
 

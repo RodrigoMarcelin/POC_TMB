@@ -16,10 +16,12 @@ namespace OrderManagement.Application.UseCase
     {
         private readonly IOrderRepository _repository;
         private readonly IOrderNotifier _notifier;
-        public InsertOrderUseCase(IOrderRepository repository, IOrderNotifier notifier)
+        private readonly IBusUpdateQueue _busQueue;
+        public InsertOrderUseCase(IOrderRepository repository, IOrderNotifier notifier, IBusUpdateQueue busQueue)
         {
             _repository = repository;
             _notifier = notifier;
+            _busQueue = busQueue;
         }
 
         public async Task<ICommandResult> InsertOrder(InputOrderDTO command)
@@ -30,6 +32,7 @@ namespace OrderManagement.Application.UseCase
                 var insertOrder = await _repository.Insert(entityOrder);
                 var insertOrderDTO = OrderMapper.ToDto(insertOrder);
                 await _notifier.NotifyOrderUpdatedAsync();
+                await _busQueue.SendMessage(insertOrder);
                 return new CommandResult(true, "", insertOrderDTO);
 
             } catch (Exception ex)

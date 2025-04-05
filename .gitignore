@@ -6,6 +6,8 @@
 /backend/*.suo
 /backend/*.userosscache
 /backend/*.sln.docstates
+**/bin/
+**/obj/
 
 /frontend/node_modules/
 /frontend/.vite/
