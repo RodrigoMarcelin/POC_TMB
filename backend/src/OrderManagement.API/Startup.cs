@@ -47,7 +47,6 @@ namespace OrderManagement.API
             );
 
             services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<ICommandResult, CommandResult>();
             services.AddScoped<DeleteOrderUseCase, DeleteOrderUseCase>();
             services.AddScoped<GetAllOrderUseCase, GetAllOrderUseCase>();
             services.AddScoped<GetOrderByIdUseCase, GetOrderByIdUseCase>();

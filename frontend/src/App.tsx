@@ -21,7 +21,8 @@ const App = () => {
     const fetchOrders = async () => {
       try {
         const data = await getOrders();
-        setOrders(data);
+        const ordersData = data ?? [];
+        setOrders(ordersData);
       } catch (error: any) {
         setError(error.message || "Erro ao carregar os pedidos.");
       } finally {

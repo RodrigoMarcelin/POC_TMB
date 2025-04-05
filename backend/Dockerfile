@@ -1,16 +1,10 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dev-env
 WORKDIR /app
 
 COPY src/ .
 
 WORKDIR OrderManagement.API
 
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app/out
+EXPOSE 5000
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0
-WORKDIR /app
-
-COPY --from=build-env /app/out .
-
-ENTRYPOINT [ "dotnet", "OrderManagement.API.dll" ]
+CMD ["dotnet", "watch", "run"]

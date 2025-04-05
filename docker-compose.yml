@@ -29,8 +29,9 @@ services:
       - "5000:5000"  
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
       - ConnectionStrings__DefaultConnection=Server=postgres;Port=5432;Database=orderManager;Username=postgres;Password=postgres
-      - ServiceBus__OrderManagementUpdate=
+      - ServiceBus__OrderManagementUpdate=Endpoint={ AQUI }
     depends_on:
       - postgres  
     networks:
