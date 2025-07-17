@@ -31,7 +31,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5000
       - ConnectionStrings__DefaultConnection=Server=postgres;Port=5432;Database=orderManager;Username=postgres;Password=postgres
-      - ServiceBus__OrderManagementUpdate={ API }
+      - ServiceBus__OrderManagementUpdate={Substituir bus}
     depends_on:
       - postgres  
     networks:
